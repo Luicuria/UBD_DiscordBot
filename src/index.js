@@ -4,6 +4,15 @@ import { REST } from '@discordjs/rest';
 import { DisTube } from 'distube';
 
 config();
+const dateoptions = {
+    weekday: 'short',
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    hour: '2-digit',
+    hour12: false,
+    minute: 'numeric'
+}
 
 const client = new Client({
 	intents: [
@@ -34,12 +43,10 @@ client.on('ready', () => {
 });
 
 client.on('messageCreate', (message) => {
-    /*console.log(`\nSend From: ${message.channelId}`);
-    console.log(`\n${message.author.username}: ${message.content}`);
-    console.log(message.createdAt.toUTCString());*/
     if(mssgRead === true){
-        console.log(`\n${message.author.username}: ${message.content}`);
-        console.log(message.createdAt.toUTCString());
+        console.log(`\nMetin Kanalı: ${message.channel.name}`);
+        console.log(`${message.author.username}: ${message.content}`);
+        console.log(message.createdAt.toLocaleString('tr', dateoptions));
     }
     if (message.author.bot || !message.guild) return;
     const prefix = "!"
