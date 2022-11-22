@@ -137,14 +137,9 @@ client.on('interactionCreate', (interaction) => {
             case UBD_ID:
                 interaction.reply('Hail to the King, Hail to the One!');
                 break;
-            //case y:
-              // code block
-              //break;
             default:
                 interaction.reply('Merhaba!');
         }
-        /*console.log(interaction.user.id);*/
-        
     }
 });
   
@@ -156,7 +151,6 @@ async function Command_init() {
         description: 'Bot replies'
         }
     ];
-
     try {
         console.log('Started refreshing application (/) commands.');
         await rest.put(
