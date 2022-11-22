@@ -110,7 +110,6 @@ client.on('messageCreate', (message) => {
         if (!mssgRead){
             message.channel.send(`Message log activated!`)
             mssgRead = true
-            console.log(mssgRead)
         } else {
             message.channel.send(`Message log is already active!`)
         }
