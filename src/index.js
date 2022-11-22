@@ -19,7 +19,7 @@ const QUEEN_TOKEN = process.env.QUEEN_BOT_TOKEN;
 const CLIENT_ID  = process.env.CLIENT_ID;
 const GUILD_ID_LK  = process.env.GUILD_ID_LK;
 const UBD_ID  = process.env.UBD_ID;
-
+var mssgRead = false
 const rest = new REST({ version: '9' }).setToken(QUEEN_TOKEN);
 
 client.distube = new DisTube(client, {
@@ -37,7 +37,10 @@ client.on('messageCreate', (message) => {
     /*console.log(`\nSend From: ${message.channelId}`);
     console.log(`\n${message.author.username}: ${message.content}`);
     console.log(message.createdAt.toUTCString());*/
-    const mssgRead = false
+    if(mssgRead === true){
+        console.log(`\n${message.author.username}: ${message.content}`);
+        console.log(message.createdAt.toUTCString());
+    }
     if (message.author.bot || !message.guild) return;
     const prefix = "!"
     if (!message.content.toLowerCase().startsWith(prefix)) return;
@@ -96,29 +99,23 @@ client.on('messageCreate', (message) => {
             message.channel.send('The queue is not paused!')
         }
     }
-    /*
-    if(commd === 'messageReadOn'){
-        if (mssgRead === false){
+    if(commd === 'messagereadon'){
+        if (!mssgRead){
             message.channel.send(`Message log activated!`)
             mssgRead = true
+            console.log(mssgRead)
         } else {
             message.channel.send(`Message log is already active!`)
         }
     }
-    if(commd === 'messageReadOff'){
-        if (mssgRead === true){
+    if(commd === 'messagereadoff'){
+        if (mssgRead){
             message.channel.send(`Message log deactivated!`)
             mssgRead = false
         } else {
             message.channel.send(`Message log is already deactive!`)
         }
-    }
-    if(mssgRead === true){
-        console.log(`\n${message.author.username}: ${message.content}`);
-        console.log(message.createdAt.toUTCString());
-    } else {
-        message.channel.send(`Message log is deactive!`)
-    }*/
+    }  
 })
 
 client.distube.on('playSong', (queue, song) => {
