@@ -96,6 +96,7 @@ client.on('messageCreate', (message) => {
             message.channel.send('The queue is not paused!')
         }
     }
+    /*
     if(commd === 'messageReadOn'){
         if (mssgRead === false){
             message.channel.send(`Message log activated!`)
@@ -117,7 +118,7 @@ client.on('messageCreate', (message) => {
         console.log(message.createdAt.toUTCString());
     } else {
         message.channel.send(`Message log is deactive!`)
-    }
+    }*/
 })
 
 client.distube.on('playSong', (queue, song) => {
