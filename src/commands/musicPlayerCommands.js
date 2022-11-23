@@ -1,4 +1,4 @@
-function musicPlayerCmmd(client, message, args, commd, queue) {
+function musicPlayerCmmd(client, message, args, commd, queue2) {
     if(commd === 'play'){
         client.distube.play(message.member.voice.channel, args.join(' '), {
             member: message.member,
@@ -7,31 +7,19 @@ function musicPlayerCmmd(client, message, args, commd, queue) {
         })
     }
     if(commd === 'stop'){
-        if (!queue) {
+        if (!queue2) {
             message.channel.send(`There is nothing in the queue right now!`)
             return;
         } 
-        queue.stop()
+        queue2.stop()
         message.channel.send(`Stopped!`)
     }
-    if(commd === 'skip'){
-        if (!queue) {
-            message.channel.send(`There is nothing in the queue right now!`)
-            return;
-        } 
-        try {
-            queue.skip()
-            message.channel.send(`Skipped!`)
-        } catch (e) {
-            message.channel.send(`Error: ${e}`)
-        }
-    }
     if(commd === 'pause'){
-        if (!queue) {
+        if (!queue2) {
             message.channel.send(`There is nothing in the queue right now!`)
             return;
         } 
-        if (!queue.paused) {
+        if (!queue2.paused) {
             queue.pause()
             message.channel.send('Paused!')
         } else {
@@ -40,12 +28,12 @@ function musicPlayerCmmd(client, message, args, commd, queue) {
         
     }
     if(commd === 'resume'){
-        if (!queue) {
+        if (!queue2) {
             message.channel.send(`There is nothing in the queue right now!`)
             return;
         } 
-        if (queue.paused) {
-            queue.resume()
+        if (queue2.paused) {
+            queue2.resume()
             message.channel.send('Resumed!')
         } else {
             message.channel.send('The queue is not paused!')

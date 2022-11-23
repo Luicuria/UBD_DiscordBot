@@ -41,16 +41,6 @@ client.distube = new DisTube(client, {
     emitAddListWhenCreatingQueue: false,
 })
 
-const status = queue =>
-    `Volume: \`${queue.volume}%\``
-
-/*
-const status = queue =>
-    `Volume: \`${queue.volume}%\` | Filter: \`${queue.filters.names.join(', ') || 'Off'}\` | Loop: \`${
-    queue.repeatMode ? (queue.repeatMode === 2 ? 'All Queue' : 'This Song') : 'Off'
-    }\` | Autoplay: \`${queue.autoplay ? 'On' : 'Off'}\``
-*/
-
 client.on('ready', () => {
     console.log(`${client.user.username} is logged in!`);
 });
@@ -64,12 +54,21 @@ client.on('messageCreate', (message) => {
     if (message.author.bot || !message.guild) return;
     const prefix = "!"
     if (!message.content.toLowerCase().startsWith(prefix)) return;
-    const queue = client.distube.getQueue(message)
+    const queue2 = client.distube.getQueue(message)
     const args = message.content.slice(prefix.length).trim().split(/ +/g)
     const commd = args.shift().toLowerCase() 
-    musicPlayerCmmd(client, message, args, commd, queue);
+    musicPlayerCmmd(client, message, args, commd, queue2);
     mssgRead = messageRead(message, commd, mssgRead);
 })
+
+const status = queue =>
+    `Volume: \`${queue.volume}%\``
+/*
+const status = queue =>
+    `Volume: \`${queue.volume}%\` | Filter: \`${queue.filters.names.join(', ') || 'Off'}\` | Loop: \`${
+    queue.repeatMode ? (queue.repeatMode === 2 ? 'All Queue' : 'This Song') : 'Off'
+    }\` | Autoplay: \`${queue.autoplay ? 'On' : 'Off'}\``
+*/
 
 client.distube
     .on('playSong', (queue, song) => {
@@ -81,7 +80,6 @@ client.distube
         `Added to queue: ${song.name} | Duration: \`${song.formattedDuration}\` | Requested by ${song.user}`)
         }
     )
-    
 
 client.on('interactionCreate', (interaction) => {
     if (!interaction.isCommand()) return;
