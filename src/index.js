@@ -41,6 +41,16 @@ client.distube = new DisTube(client, {
     emitAddListWhenCreatingQueue: false,
 })
 
+const status = queue =>
+    `Volume: \`${queue.volume}%\``
+
+/*
+const status = queue =>
+    `Volume: \`${queue.volume}%\` | Filter: \`${queue.filters.names.join(', ') || 'Off'}\` | Loop: \`${
+    queue.repeatMode ? (queue.repeatMode === 2 ? 'All Queue' : 'This Song') : 'Off'
+    }\` | Autoplay: \`${queue.autoplay ? 'On' : 'Off'}\``
+*/
+
 client.on('ready', () => {
     console.log(`${client.user.username} is logged in!`);
 });
@@ -61,9 +71,17 @@ client.on('messageCreate', (message) => {
     mssgRead = messageRead(message, commd, mssgRead);
 })
 
-client.distube.on('playSong', (queue, song) => {
-    queue.textChannel.send(`Now Playing: ${song.name}`)
-})
+client.distube
+    .on('playSong', (queue, song) => {
+        queue.textChannel.send(`Now Playing: ${song.name} | Duration: \`${song.formattedDuration}\` | Requested by ${song.user} \n${status(queue)}`)
+        }
+    )
+    .on('addSong', (queue, song) => {
+        queue.textChannel.send(
+        `Added to queue: ${song.name} | Duration: \`${song.formattedDuration}\` | Requested by ${song.user}`)
+        }
+    )
+    
 
 client.on('interactionCreate', (interaction) => {
     if (!interaction.isCommand()) return;
