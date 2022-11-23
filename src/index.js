@@ -34,6 +34,15 @@ const UBD_ID  = process.env.UBD_ID;
 var mssgRead = false
 const rest = new REST({ version: '9' }).setToken(QUEEN_TOKEN);
 
+const status = queue =>
+    `Volume: \`${queue.volume}%\``
+/*
+const status = queue =>
+    `Volume: \`${queue.volume}%\` | Filter: \`${queue.filters.names.join(', ') || 'Off'}\` | Loop: \`${
+    queue.repeatMode ? (queue.repeatMode === 2 ? 'All Queue' : 'This Song') : 'Off'
+    }\` | Autoplay: \`${queue.autoplay ? 'On' : 'Off'}\``
+*/
+
 client.distube = new DisTube(client, {
     leaveOnStop: false,
     emitNewSongOnly: true,
@@ -60,15 +69,6 @@ client.on('messageCreate', (message) => {
     musicPlayerCmmd(client, message, args, commd, queue2);
     mssgRead = messageRead(message, commd, mssgRead);
 })
-
-const status = queue =>
-    `Volume: \`${queue.volume}%\``
-/*
-const status = queue =>
-    `Volume: \`${queue.volume}%\` | Filter: \`${queue.filters.names.join(', ') || 'Off'}\` | Loop: \`${
-    queue.repeatMode ? (queue.repeatMode === 2 ? 'All Queue' : 'This Song') : 'Off'
-    }\` | Autoplay: \`${queue.autoplay ? 'On' : 'Off'}\``
-*/
 
 client.distube
     .on('playSong', (queue, song) => {
