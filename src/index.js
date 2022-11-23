@@ -56,7 +56,8 @@ client.on('ready', () => {
 
 client.on('messageCreate', (message) => {
     if(mssgRead === true){
-        console.log(`\nMetin Kanalı: ${message.channel.name}`);
+        console.log(`\nServer Name: ${message.guild.name}`);
+        console.log(`Text Channel: ${message.channel.name}`);
         console.log(`${message.author.username}: ${message.content}`);
         console.log(message.createdAt.toLocaleString('tr', dateoptions));
     }
