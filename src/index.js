@@ -2,6 +2,9 @@ import { config } from 'dotenv';
 import { Client, GatewayIntentBits, Routes, TextChannel } from 'discord.js';
 import { REST } from '@discordjs/rest';
 import { DisTube } from 'distube';
+import { musicPlayerCmmd } from './commands/musicPlayerCommands.js'
+import { messageRead } from './commands/messageReadCommand.js'
+import { Command_init } from './commands/Command_init.js'
 
 config();
 const dateoptions = {
@@ -54,74 +57,8 @@ client.on('messageCreate', (message) => {
     const queue = client.distube.getQueue(message)
     const args = message.content.slice(prefix.length).trim().split(/ +/g)
     const commd = args.shift().toLowerCase() 
-    if(commd === 'play'){
-        client.distube.play(message.member.voice.channel, args.join(' '), {
-            member: message.member,
-            TextChannel: message.channel,
-            message,
-        })
-    }
-    if(commd === 'stop'){
-        if (!queue) {
-            message.channel.send(`There is nothing in the queue right now!`)
-            return;
-        } 
-        queue.stop()
-        message.channel.send(`Stopped!`)
-    }
-    if(commd === 'skip'){
-        if (!queue) {
-            message.channel.send(`There is nothing in the queue right now!`)
-            return;
-        } 
-        try {
-            queue.skip()
-            message.channel.send(`Skipped!`)
-        } catch (e) {
-            message.channel.send(`Error: ${e}`)
-        }
-    }
-    if(commd === 'pause'){
-        if (!queue) {
-            message.channel.send(`There is nothing in the queue right now!`)
-            return;
-        } 
-        if (!queue.paused) {
-            queue.pause()
-            message.channel.send('Paused!')
-        } else {
-            message.channel.send('The song is not playing!')
-        }
-          
-    }
-    if(commd === 'resume'){
-        if (!queue) {
-            message.channel.send(`There is nothing in the queue right now!`)
-            return;
-        } 
-        if (queue.paused) {
-            queue.resume()
-            message.channel.send('Resumed!')
-        } else {
-            message.channel.send('The queue is not paused!')
-        }
-    }
-    if(commd === 'messagereadon'){
-        if (!mssgRead){
-            message.channel.send(`Message log activated!`)
-            mssgRead = true
-        } else {
-            message.channel.send(`Message log is already active!`)
-        }
-    }
-    if(commd === 'messagereadoff'){
-        if (mssgRead){
-            message.channel.send(`Message log deactivated!`)
-            mssgRead = false
-        } else {
-            message.channel.send(`Message log is already deactive!`)
-        }
-    }  
+    musicPlayerCmmd(client, message, args, commd, queue);
+    mssgRead = messageRead(message, commd, mssgRead);
 })
 
 client.distube.on('playSong', (queue, song) => {
@@ -142,25 +79,6 @@ client.on('interactionCreate', (interaction) => {
     }
 });
   
-
-async function Command_init() {
-
-    const commands = [{
-        name: 'ping',
-        description: 'Bot replies'
-        }
-    ];
-    try {
-        console.log('Started refreshing application (/) commands.');
-        await rest.put(
-            Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID_LK),
-            { body: commands },
-        );
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-Command_init();
+Command_init(rest, CLIENT_ID, GUILD_ID_LK);
 
 client.login(QUEEN_TOKEN);
