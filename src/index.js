@@ -74,13 +74,33 @@ client.on('messageCreate', (message) => {
 
 client.distube
     .on('playSong', (queue, song) => {
-        /*
         const embedmssg = new EmbedBuilder()
-            .setTitle('Title')
-            .setColor('#8fda81')
-            .setThumbnail(song.thumbnail);
-        queue.textChannel.send({ embeds: [embedmssg] });*/
-        queue.textChannel.send(`Now Playing: ${song.name} | Duration: \`${song.formattedDuration}\` | Requested by ${song.user} \n${status(queue)}`)
+            .setTitle('Now Playing:')
+            .setDescription(`${song.name}`)
+            .setColor('#1a9c9c')
+            .addFields(
+                { name: '\u200B', value: '\u200B' },
+            )
+            .addFields(
+                { name: 'Duration', value: `\`${song.formattedDuration}\``, inline: true},
+                { name: 'Requested by', value: `${song.user}`, inline: true},
+                { name: '\u200B', value: '\u200B' },
+            )
+            .addFields(
+                { name: 'Filter', value: `\`${queue.filters.names.join(', ') || 'Off'}\``, inline: true},
+                { name: 'Loop', value: `\`${queue.repeatMode ? (queue.repeatMode === 2 ? 'All Queue' : 'This Song') : 'Off'}\``, inline: true },
+                { name: 'Autoplay', value: `\`${queue.autoplay ? 'On' : 'Off'}\``, inline: true},
+            )
+            //.setThumbnail('https://ibb.co/7GmzwjK')
+            //.setThumbnail('https://imgur.com/a/mBn7nm5')
+            //.setImage('https://imgur.com/a/mBn7nm5')
+            //.setThumbnail(song.thumbnail)
+            .setImage(song.thumbnail)
+            //.setImage('https://www.hizliresim.com/e2n1d7j')
+            .setTimestamp()
+        queue.textChannel.send({ embeds: [embedmssg] });
+        //queue.textChannel.send(`Now Playing: ${song.name} | Duration: \`${song.formattedDuration}\` | Requested by ${song.user} \n${status(queue)}`)
+        //https://stackoverflow.com/questions/66511691/how-to-create-an-embed-with-a-certain-number-of-fields-from-a-number
         }
     )
     .on('addSong', (queue, song) => {

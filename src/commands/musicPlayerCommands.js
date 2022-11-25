@@ -1,3 +1,5 @@
+import { EmbedBuilder } from 'discord.js';
+
 function musicPlayerCmmd(client, message, args, commd, queue2) {
     if(commd === 'play'){
         client.distube.play(message.member.voice.channel, args.join(' '), {
@@ -74,6 +76,28 @@ function musicPlayerCmmd(client, message, args, commd, queue2) {
             return;
         }
         try {
+            var arr = new Array(20)
+            var temp
+            for (let i = 0; i != -1; i++) {
+                if (typeof queue2.songs[i] === 'undefined') break;
+                //console.log(queue2.songs[i])
+                message.channel.send(`${i+1}. Song: \`${queue2.songs[i].name}\` | Duration: \`${queue2.songs[i].formattedDuration}\``)
+                temp = i
+            }
+            /*
+            const embedmssg2 = new EmbedBuilder()
+            .setTitle('Queue')
+            .setDescription(`${song.name}`)
+            .setColor('#1a9c9c')
+            .addFields(
+                { name: '\u200B', value: '\u200B' },
+            )
+            .addFields(
+                { name: 'Duration', value: `\`${song.formattedDuration}\``},
+                { name: 'Requested by', value: `${song.user}`},
+            )
+            .setTimestamp()
+            queue.textChannel.send({ embeds: [embedmssg2] });*/
             for (let i = 0; i != -1; i++) {
                 if (typeof queue2.songs[i] === 'undefined') break;
                 //console.log(queue2.songs[i])
