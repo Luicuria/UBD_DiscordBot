@@ -68,6 +68,21 @@ function musicPlayerCmmd(client, message, args, commd, queue2) {
         queue2.setVolume(volume)
         message.channel.send(`Volume set to \`${volume}\``)
     }
+    if(commd === 'queueinfo'){
+        if (!queue2) {
+            message.channel.send(`There is nothing in the queue right now!`)
+            return;
+        }
+        try {
+            for (let i = 0; i != -1; i++) {
+                if (typeof queue2.songs[i] === 'undefined') break;
+                console.log(queue2.songs[i])
+                message.channel.send(`${i+1}. Song: \`${queue2.songs[i].name}\` | Duration: \`${queue2.songs[i].formattedDuration}\``)
+            }
+        } catch (e) {
+            message.channel.send(`${e}`)
+        }
+    }
 }
 
 export { musicPlayerCmmd };
