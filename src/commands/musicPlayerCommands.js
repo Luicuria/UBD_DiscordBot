@@ -76,7 +76,7 @@ function musicPlayerCmmd(client, message, args, commd, queue2) {
         try {
             for (let i = 0; i != -1; i++) {
                 if (typeof queue2.songs[i] === 'undefined') break;
-                console.log(queue2.songs[i])
+                //console.log(queue2.songs[i])
                 message.channel.send(`${i+1}. Song: \`${queue2.songs[i].name}\` | Duration: \`${queue2.songs[i].formattedDuration}\``)
             }
         } catch (e) {
