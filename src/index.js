@@ -5,6 +5,7 @@ import { DisTube } from 'distube';
 import { musicPlayerCmmd } from './commands/musicPlayerCommands.js'
 import { messageRead } from './commands/messageReadCommand.js'
 import { Command_init } from './commands/Command_init.js'
+import { EmbedBuilder } from 'discord.js';
 
 config();
 const dateoptions = {
@@ -73,6 +74,11 @@ client.on('messageCreate', (message) => {
 
 client.distube
     .on('playSong', (queue, song) => {
+        const embedmssg = new EmbedBuilder()
+            .setTitle('Title')
+            .setColor('#8fda81')
+            .setThumbnail(song.thumbnail);
+        queue.textChannel.send({ embeds: [embedmssg] });
         queue.textChannel.send(`Now Playing: ${song.name} | Duration: \`${song.formattedDuration}\` | Requested by ${song.user} \n${status(queue)}`)
         }
     )
