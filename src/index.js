@@ -74,11 +74,12 @@ client.on('messageCreate', (message) => {
 
 client.distube
     .on('playSong', (queue, song) => {
+        /*
         const embedmssg = new EmbedBuilder()
             .setTitle('Title')
             .setColor('#8fda81')
             .setThumbnail(song.thumbnail);
-        queue.textChannel.send({ embeds: [embedmssg] });
+        queue.textChannel.send({ embeds: [embedmssg] });*/
         queue.textChannel.send(`Now Playing: ${song.name} | Duration: \`${song.formattedDuration}\` | Requested by ${song.user} \n${status(queue)}`)
         }
     )
