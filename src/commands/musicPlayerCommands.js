@@ -86,6 +86,9 @@ function musicPlayerCmmd(client, message, args, commd, queue2) {
             const embedmssg2 = new EmbedBuilder()
             .setTitle('Queue')
             .setColor('#1a9c9c')
+            .addFields(
+                { name: '\u200B', value: '\u200B' },
+            )
             .setTimestamp()
             //console.log(arr)
             for (let i = 0; i != -1; i++) {
@@ -107,6 +110,16 @@ function musicPlayerCmmd(client, message, args, commd, queue2) {
         } catch (e) {
             message.channel.send(`${e}`)
         }
+    }
+    if(commd === 'help'){
+        const embedmssg2 = new EmbedBuilder()
+        .setTitle('Commands List')
+        .setColor('#1a9c9c')
+        .addFields(
+            { name: 'Music Player Commands', value: '\`!play\`, \`!stop\`, \`!skip\`, \`!pause\`, \`!resume\`, \`!volume\`, \`!queueinfo\`' },
+        )
+        .setTimestamp()
+        message.channel.send({ embeds: [embedmssg2] });
     }
 }
 
