@@ -74,7 +74,7 @@ client.on('messageCreate', (message) => {
 
 client.distube
     .on('playSong', (queue, song) => {
-        const embedmssg = new EmbedBuilder()
+        const embedPlaySongMssg = new EmbedBuilder()
             .setTitle('Now Playing:')
             .setDescription(`${song.name}`)
             .setColor('#1a9c9c')
@@ -98,14 +98,34 @@ client.distube
             .setImage(song.thumbnail)
             //.setImage('https://www.hizliresim.com/e2n1d7j')
             .setTimestamp()
-        queue.textChannel.send({ embeds: [embedmssg] });
+        queue.textChannel.send({ embeds: [embedPlaySongMssg] });
+        //console.log(queue.previousSongs.name)
         //queue.textChannel.send(`Now Playing: ${song.name} | Duration: \`${song.formattedDuration}\` | Requested by ${song.user} \n${status(queue)}`)
         //https://stackoverflow.com/questions/66511691/how-to-create-an-embed-with-a-certain-number-of-fields-from-a-number
         }
     )
     .on('addSong', (queue, song) => {
-        queue.textChannel.send(
-        `Added to queue: ${song.name} | Duration: \`${song.formattedDuration}\` | Requested by ${song.user}`)
+        const embedAddSongMssg = new EmbedBuilder()
+            .setTitle('Added Queue:')
+            .setDescription(`${song.name}`)
+            .setColor('#1a9c9c')
+            .addFields(
+                { name: '\u200B', value: '\u200B' },
+            )
+            .addFields(
+                { name: 'Duration', value: `\`${song.formattedDuration}\``, inline: true},
+                { name: 'Requested by', value: `${song.user}`, inline: true},
+                { name: '\u200B', value: '\u200B' },
+            )
+            .addFields(
+                { name: 'Filter', value: `\`${queue.filters.names.join(', ') || 'Off'}\``, inline: true},
+                { name: 'Loop', value: `\`${queue.repeatMode ? (queue.repeatMode === 2 ? 'All Queue' : 'This Song') : 'Off'}\``, inline: true },
+                { name: 'Autoplay', value: `\`${queue.autoplay ? 'On' : 'Off'}\``, inline: true},
+            )
+            .setImage(song.thumbnail)
+            .setTimestamp()
+        queue.textChannel.send({ embeds: [embedAddSongMssg] });
+        //queue.textChannel.send(`Added to queue: ${song.name} | Duration: \`${song.formattedDuration}\` | Requested by ${song.user}`)
         }
     )
 
