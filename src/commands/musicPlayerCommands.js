@@ -111,16 +111,6 @@ function musicPlayerCmmd(client, message, args, commd, queue2) {
             message.channel.send(`${e}`)
         }
     }
-    if(commd === 'help'){
-        const embedmssg2 = new EmbedBuilder()
-        .setTitle('Commands List')
-        .setColor('#1a9c9c')
-        .addFields(
-            { name: 'Music Player Commands', value: '\`!play\`, \`!stop\`, \`!skip\`, \`!pause\`, \`!resume\`, \`!volume\`, \`!queueinfo\`' },
-        )
-        .setTimestamp()
-        message.channel.send({ embeds: [embedmssg2] });
-    }
 }
 
 export { musicPlayerCmmd };

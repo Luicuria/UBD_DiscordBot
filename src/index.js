@@ -4,6 +4,7 @@ import Discord from 'discord.js';
 import { REST } from '@discordjs/rest';
 import { DisTube } from 'distube';
 import { musicPlayerCmmd } from './commands/musicPlayerCommands.js'
+import { help } from './commands/help.js'
 import { messageRead } from './commands/messageReadCommand.js'
 import { Command_init } from './commands/Command_init.js'
 import { SlashCommandBuilder, EmbedBuilder, Embed, AttachmentBuilder } from 'discord.js';
@@ -71,6 +72,7 @@ client.on('messageCreate', (message) => {
     const commd = args.shift().toLowerCase() 
     musicPlayerCmmd(client, message, args, commd, queue2);
     mssgRead = messageRead(message, commd, mssgRead);
+    help(message, commd)
 })
 
 client.distube
@@ -80,9 +82,6 @@ client.distube
             .setTitle('Now Playing:')
             .setDescription(`${song.name}`)
             .setColor('#1a9c9c')
-            .addFields(
-                { name: '\u200B', value: '\u200B' },
-            )
             .addFields(
                 { name: 'Duration', value: `\`${song.formattedDuration}\``, inline: true},
                 { name: 'Requested by', value: `${song.user}`, inline: true},
@@ -106,9 +105,6 @@ client.distube
             .setTitle('Added Queue:')
             .setDescription(`${song.name}`)
             .setColor('#1a9c9c')
-            .addFields(
-                { name: '\u200B', value: '\u200B' },
-            )
             .addFields(
                 { name: 'Duration', value: `\`${song.formattedDuration}\``, inline: true},
                 { name: 'Requested by', value: `${song.user}`, inline: true},
