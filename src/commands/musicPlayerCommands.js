@@ -93,7 +93,7 @@ function musicPlayerCmmd(client, message, args, commd, queue2) {
             //console.log(arr)
             for (let i = 0; i != -1; i++) {
                 if (typeof arr[i] === 'undefined') break;
-                if (i === 0) {
+                if (i === 0) {//https://stackoverflow.com/questions/66511691/how-to-create-an-embed-with-a-certain-number-of-fields-from-a-number
                     embedmssg2.addFields({ name: `Song Playing:`, value: `${arr[i]}`})
                 } else {
                     embedmssg2.addFields({ name: `${i}. Song:`, value: `${arr[i]}`})

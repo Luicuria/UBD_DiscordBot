@@ -94,17 +94,11 @@ client.distube
                 { name: 'Loop', value: `\`${queue.repeatMode ? (queue.repeatMode === 2 ? 'All Queue' : 'This Song') : 'Off'}\``, inline: true },
                 { name: 'Autoplay', value: `\`${queue.autoplay ? 'On' : 'Off'}\``, inline: true},
             )
-            //.setThumbnail('https://ibb.co/7GmzwjK')
-            //.setThumbnail('https://imgur.com/a/mBn7nm5')
-            //.setImage('https://imgur.com/a/mBn7nm5')
             .setThumbnail(song.thumbnail)
             .setImage('attachment://wp.jpg')
-            //.setImage('https://www.hizliresim.com/e2n1d7j')
             .setTimestamp()
         queue.textChannel.send({ embeds: [embedPlaySongMssg], files: [embImg] });
-        //console.log(queue.previousSongs.name)
         //queue.textChannel.send(`Now Playing: ${song.name} | Duration: \`${song.formattedDuration}\` | Requested by ${song.user} \n${status(queue)}`)
-        //https://stackoverflow.com/questions/66511691/how-to-create-an-embed-with-a-certain-number-of-fields-from-a-number
         }
     )
     .on('addSong', (queue, song) => {
