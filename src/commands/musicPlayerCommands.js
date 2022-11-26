@@ -87,8 +87,8 @@ function musicPlayerCmmd(client, message, args, commd, queue2) {
             .setTitle('Queue')
             .setColor('#1a9c9c')
             .setTimestamp()
-            console.log(arr)
-            for (let i = 0; typeof arr != -1; i++) {
+            //console.log(arr)
+            for (let i = 0; i != -1; i++) {
                 if (typeof arr[i] === 'undefined') break;
                 if (i === 0) {
                     embedmssg2.addFields({ name: `Song Playing:`, value: `${arr[i]}`})
