@@ -7,7 +7,6 @@ import { musicPlayerCmmd } from './commands/musicPlayerCommands.js'
 import { messageRead } from './commands/messageReadCommand.js'
 import { Command_init } from './commands/Command_init.js'
 import { SlashCommandBuilder, EmbedBuilder, Embed, AttachmentBuilder } from 'discord.js';
-import MessageAttachment from 'discord.js';
 
 config();
 const dateoptions = {
