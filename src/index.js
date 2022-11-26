@@ -1,11 +1,13 @@
 import { config } from 'dotenv';
 import { Client, GatewayIntentBits, Routes, TextChannel } from 'discord.js';
+import Discord from 'discord.js';
 import { REST } from '@discordjs/rest';
 import { DisTube } from 'distube';
 import { musicPlayerCmmd } from './commands/musicPlayerCommands.js'
 import { messageRead } from './commands/messageReadCommand.js'
 import { Command_init } from './commands/Command_init.js'
-import { EmbedBuilder } from 'discord.js';
+import { SlashCommandBuilder, EmbedBuilder, Embed, AttachmentBuilder } from 'discord.js';
+import MessageAttachment from 'discord.js';
 
 config();
 const dateoptions = {
@@ -74,6 +76,7 @@ client.on('messageCreate', (message) => {
 
 client.distube
     .on('playSong', (queue, song) => {
+        const embImg = new Discord.AttachmentBuilder('./src/wp/wp.jpg')
         const embedPlaySongMssg = new EmbedBuilder()
             .setTitle('Now Playing:')
             .setDescription(`${song.name}`)
@@ -94,17 +97,18 @@ client.distube
             //.setThumbnail('https://ibb.co/7GmzwjK')
             //.setThumbnail('https://imgur.com/a/mBn7nm5')
             //.setImage('https://imgur.com/a/mBn7nm5')
-            //.setThumbnail(song.thumbnail)
-            .setImage(song.thumbnail)
+            .setThumbnail(song.thumbnail)
+            .setImage('attachment://wp.jpg')
             //.setImage('https://www.hizliresim.com/e2n1d7j')
             .setTimestamp()
-        queue.textChannel.send({ embeds: [embedPlaySongMssg] });
+        queue.textChannel.send({ embeds: [embedPlaySongMssg], files: [embImg] });
         //console.log(queue.previousSongs.name)
         //queue.textChannel.send(`Now Playing: ${song.name} | Duration: \`${song.formattedDuration}\` | Requested by ${song.user} \n${status(queue)}`)
         //https://stackoverflow.com/questions/66511691/how-to-create-an-embed-with-a-certain-number-of-fields-from-a-number
         }
     )
     .on('addSong', (queue, song) => {
+        const embImg2 = new Discord.AttachmentBuilder('./src/wp/wp.jpg')
         const embedAddSongMssg = new EmbedBuilder()
             .setTitle('Added Queue:')
             .setDescription(`${song.name}`)
@@ -122,9 +126,10 @@ client.distube
                 { name: 'Loop', value: `\`${queue.repeatMode ? (queue.repeatMode === 2 ? 'All Queue' : 'This Song') : 'Off'}\``, inline: true },
                 { name: 'Autoplay', value: `\`${queue.autoplay ? 'On' : 'Off'}\``, inline: true},
             )
-            .setImage(song.thumbnail)
+            .setThumbnail(song.thumbnail)
+            .setImage('attachment://wp.jpg')
             .setTimestamp()
-        queue.textChannel.send({ embeds: [embedAddSongMssg] });
+        queue.textChannel.send({ embeds: [embedAddSongMssg], files: [embImg2]  });
         //queue.textChannel.send(`Added to queue: ${song.name} | Duration: \`${song.formattedDuration}\` | Requested by ${song.user}`)
         }
     )
