@@ -1,6 +1,5 @@
 import { Routes } from 'discord.js';
-async function Command_init(rest, CLIENT_ID, GUILD_ID_LK) {
-
+async function SlashCommand_init(rest, CLIENT_ID, GUILD_ID_LK) {
     const commands = [{
         name: 'ping',
         description: 'Bot replies'
@@ -17,4 +16,4 @@ async function Command_init(rest, CLIENT_ID, GUILD_ID_LK) {
     }
 }
 
-export { Command_init };
+export { SlashCommand_init };

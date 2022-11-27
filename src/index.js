@@ -13,7 +13,7 @@ import { musicQueueInfo } from './commands/queueinfo.js'
 import { musicPlayerCmmd } from './commands/musicPlayerCommands.js'
 import { help } from './commands/help.js'
 import { messageRead } from './commands/messageReadCommand.js'
-import { Command_init } from './commands/Command_init.js'
+import { SlashCommand_init } from './commands/Command_init.js'
 import { SlashCommandBuilder, EmbedBuilder, Embed, AttachmentBuilder } from 'discord.js';
 
 config();
@@ -103,7 +103,7 @@ client.on('messageCreate', (message) => {
             help(message)
             break;
         default:
-            message.channel.send('Invalid arguement! Use arguements stated in \`!help\`')
+            message.channel.send('Invalid command! Use commands stated in \`!help\`')
     }
     //musicPlayerCmmd(client, message, args, commd, queue2);
     mssgRead = messageRead(message, commd, mssgRead);
@@ -171,6 +171,6 @@ client.on('interactionCreate', (interaction) => {
     }
 });
   
-Command_init(rest, CLIENT_ID, GUILD_ID_LK);
+SlashCommand_init(rest, CLIENT_ID, GUILD_ID_LK);
 
 client.login(QUEEN_TOKEN);
