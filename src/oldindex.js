@@ -3,13 +3,6 @@ import { Client, GatewayIntentBits, Routes, TextChannel } from 'discord.js';
 import Discord from 'discord.js';
 import { REST } from '@discordjs/rest';
 import { DisTube } from 'distube';
-import { musicPlay } from './commands/play.js'
-import { musicStop } from './commands/stop.js'
-import { musicSkip } from './commands/skip.js'
-import { musicPause } from './commands/pause.js'
-import { musicResume } from './commands/resume.js'
-import { musicVolume } from './commands/volume.js'
-import { musicQueueInfo } from './commands/queueinfo.js'
 import { musicPlayerCmmd } from './commands/musicPlayerCommands.js'
 import { help } from './commands/help.js'
 import { messageRead } from './commands/messageReadCommand.js'
@@ -77,36 +70,9 @@ client.on('messageCreate', (message) => {
     const queue2 = client.distube.getQueue(message)
     const args = message.content.slice(prefix.length).trim().split(/ +/g)
     const commd = args.shift().toLowerCase() 
-    switch(commd) {
-        case 'play':
-            musicPlay(client, message, args)
-            break;
-        case 'stop':
-            musicStop(message, queue2)
-            break;
-        case 'skip':
-            musicSkip(message, queue2)
-            break;
-        case 'pause':
-            musicPause(message, queue2)
-            break;
-        case 'resume':
-            musicResume(message, queue2)
-            break;
-        case 'volume':
-            musicVolume(message, args, queue2)
-            break;
-        case 'queueinfo':
-            musicQueueInfo(message, queue2)
-            break;
-        case 'help':
-            help(message)
-            break;
-        default:
-            message.channel.send('Invalid arguement! Use arguements stated in \`!help\`')
-    }
-    //musicPlayerCmmd(client, message, args, commd, queue2);
+    musicPlayerCmmd(client, message, args, commd, queue2);
     mssgRead = messageRead(message, commd, mssgRead);
+    help(message, commd)
 })
 
 client.distube
