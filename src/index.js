@@ -112,14 +112,17 @@ client.on('messageCreate', (message) => {
 client.distube
     .on('playSong', (queue, song) => {
         const embImg = new Discord.AttachmentBuilder('./src/wp/wp.jpg')
+        const embImg3 = new Discord.AttachmentBuilder('./src/wp/wp2.jpg')
         const embedPlaySongMssg = new EmbedBuilder()
-            .setTitle('Now Playing:')
-            .setDescription(`${song.name}`)
+            .setAuthor({ name: 'Now Playing:', iconURL: 'attachment://wp2.jpg'})
+            .setTitle(`${song.name}`)
+            //.setDescription(`${song.name}`)
+            .setURL(song.url)
             .setColor('#1a9c9c')
             .addFields(
-                { name: 'Duration', value: `\`${song.formattedDuration}\``, inline: true},
-                { name: 'Requested by', value: `${song.user}`, inline: true},
-                { name: '\u200B', value: '\u200B' },
+                { name: 'Duration', value: `\`${song.formattedDuration}\``},
+                { name: 'Requested by', value: `${song.user}`},
+                // { name: '\u200B', value: '\u200B' },
             )
             .addFields(
                 { name: 'Filter', value: `\`${queue.filters.names.join(', ') || 'Off'}\``, inline: true},
@@ -129,20 +132,22 @@ client.distube
             .setThumbnail(song.thumbnail)
             .setImage('attachment://wp.jpg')
             .setTimestamp()
-        queue.textChannel.send({ embeds: [embedPlaySongMssg], files: [embImg] });
+        queue.textChannel.send({ embeds: [embedPlaySongMssg], files: [embImg, embImg3] });
         //queue.textChannel.send(`Now Playing: ${song.name} | Duration: \`${song.formattedDuration}\` | Requested by ${song.user} \n${status(queue)}`)
         }
     )
     .on('addSong', (queue, song) => {
         const embImg2 = new Discord.AttachmentBuilder('./src/wp/wp.jpg')
+        const embImg4 = new Discord.AttachmentBuilder('./src/wp/wp2.jpg')
         const embedAddSongMssg = new EmbedBuilder()
-            .setTitle('Added Queue:')
-            .setDescription(`${song.name}`)
+            .setAuthor({ name: 'Now Playing:', iconURL: 'attachment://wp2.jpg'})
+            .setTitle(`${song.name}`)
+            //.setDescription()
+            .setURL(song.url)
             .setColor('#1a9c9c')
             .addFields(
-                { name: 'Duration', value: `\`${song.formattedDuration}\``, inline: true},
-                { name: 'Requested by', value: `${song.user}`, inline: true},
-                { name: '\u200B', value: '\u200B' },
+                { name: 'Duration', value: `\`${song.formattedDuration}\``},
+                { name: 'Requested by', value: `${song.user}`},
             )
             .addFields(
                 { name: 'Filter', value: `\`${queue.filters.names.join(', ') || 'Off'}\``, inline: true},
@@ -152,7 +157,7 @@ client.distube
             .setThumbnail(song.thumbnail)
             .setImage('attachment://wp.jpg')
             .setTimestamp()
-        queue.textChannel.send({ embeds: [embedAddSongMssg], files: [embImg2]  });
+        queue.textChannel.send({ embeds: [embedAddSongMssg], files: [embImg2, embImg4] });
         //queue.textChannel.send(`Added to queue: ${song.name} | Duration: \`${song.formattedDuration}\` | Requested by ${song.user}`)
         }
     )
