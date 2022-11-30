@@ -35,18 +35,18 @@ const client = new Client({
 		GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildVoiceStates,
 	],
-});
+})
 
 const QUEEN_TOKEN = process.env.QUEEN_BOT_TOKEN;
 const CLIENT_ID  = process.env.CLIENT_ID;
 const GUILD_ID_LK  = process.env.GUILD_ID_LK;
 const UBD_ID  = process.env.UBD_ID;
 var mssgRead = false
-const rest = new REST({ version: '9' }).setToken(QUEEN_TOKEN);
+const rest = new REST({ version: '10' }).setToken(QUEEN_TOKEN);
 
+/*
 const status = queue =>
     `Volume: \`${queue.volume}%\``
-/*
 const status = queue =>
     `Volume: \`${queue.volume}%\` | Filter: \`${queue.filters.names.join(', ') || 'Off'}\` | Loop: \`${
     queue.repeatMode ? (queue.repeatMode === 2 ? 'All Queue' : 'This Song') : 'Off'
@@ -62,7 +62,13 @@ client.distube = new DisTube(client, {
 
 client.on('ready', () => {
     console.log(`${client.user.username} is logged in!`);
-});
+})
+
+/*
+client.distube.on('error', (channel, e) => {
+    if (channel) channel.send(`An error encountered: ${e}`)
+    else console.error(e)
+})*/
 
 client.on('messageCreate', (message) => {
     if(mssgRead === true){
