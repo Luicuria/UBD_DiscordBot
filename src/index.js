@@ -107,6 +107,10 @@ client.on('messageCreate', (message) => {
         case 'help':
             help(message)
             break;
+        case 'messagereadon':
+            break;
+        case 'messagereadoff':
+            break;
         default:
             message.channel.send('Invalid command! Use commands stated in \`!help\`')
     }
