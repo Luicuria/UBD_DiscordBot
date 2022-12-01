@@ -64,11 +64,10 @@ client.on('ready', () => {
     console.log(`${client.user.username} is logged in!`);
 })
 
-/*
 client.distube.on('error', (channel, e) => {
     if (channel) channel.send(`An error encountered: ${e}`)
     else console.error(e)
-})*/
+})
 
 client.on('messageCreate', (message) => {
     if(mssgRead === true){
