@@ -149,7 +149,7 @@ client.distube
         const embImg2 = new Discord.AttachmentBuilder('./src/wp/wp.jpg')
         const embImg4 = new Discord.AttachmentBuilder('./src/wp/wp2.jpg')
         const embedAddSongMssg = new EmbedBuilder()
-            .setAuthor({ name: 'Now Playing:', iconURL: 'attachment://wp2.jpg'})
+            .setAuthor({ name: 'Added to Queue:', iconURL: 'attachment://wp2.jpg'})
             .setTitle(`${song.name}`)
             //.setDescription()
             .setURL(song.url)
